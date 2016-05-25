@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SampleProtocol.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <sampleProtocolDelegate>
 
+@property IBOutlet UILabel *myLabel;
 
 @end
 

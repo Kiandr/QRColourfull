@@ -17,11 +17,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    sampleProtocol *sampleProtocolInstance = [[sampleProtocol alloc]init];
+    sampleProtocolInstance.delegate = self;
+    [_myLabel setText:@"Processing..."];
+    [sampleProtocolInstance startSampleProcess];
+    // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Sample protocol delegate
+-(void)processCompleted{
+    [_myLabel setText:@"Process Completed"];
+}
+
 
 @end

@@ -16,6 +16,7 @@
 		9F7F6E441CF5685E00CAE1C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F6E421CF5685E00CAE1C6 /* LaunchScreen.storyboard */; };
 		9F7F6E4F1CF5685E00CAE1C6 /* QRColourfullTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6E4E1CF5685E00CAE1C6 /* QRColourfullTests.m */; };
 		9F7F6E5A1CF5685E00CAE1C6 /* QRColourfullUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6E591CF5685E00CAE1C6 /* QRColourfullUITests.m */; };
+		9F7F6E6C1CF578D300CAE1C6 /* sampleProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6E6B1CF578D300CAE1C6 /* sampleProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		9F7F6E551CF5685E00CAE1C6 /* QRColourfullUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QRColourfullUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7F6E591CF5685E00CAE1C6 /* QRColourfullUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRColourfullUITests.m; sourceTree = "<group>"; };
 		9F7F6E5B1CF5685E00CAE1C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F7F6E6A1CF5779C00CAE1C6 /* sampleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sampleProtocol.h; path = Models/sampleProtocol.h; sourceTree = "<group>"; };
+		9F7F6E6B1CF578D300CAE1C6 /* sampleProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = sampleProtocol.m; path = Models/sampleProtocol.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,10 +106,11 @@
 		9F7F6E301CF5685E00CAE1C6 /* QRColourfull */ = {
 			isa = PBXGroup;
 			children = (
+				9F7F6E691CF5776B00CAE1C6 /* Models */,
+				9F7F6E681CF5776100CAE1C6 /* Views */,
+				9F7F6E671CF5775600CAE1C6 /* Controllers */,
 				9F7F6E341CF5685E00CAE1C6 /* AppDelegate.h */,
 				9F7F6E351CF5685E00CAE1C6 /* AppDelegate.m */,
-				9F7F6E371CF5685E00CAE1C6 /* ViewController.h */,
-				9F7F6E381CF5685E00CAE1C6 /* ViewController.m */,
 				9F7F6E3A1CF5685E00CAE1C6 /* Main.storyboard */,
 				9F7F6E401CF5685E00CAE1C6 /* Assets.xcassets */,
 				9F7F6E421CF5685E00CAE1C6 /* LaunchScreen.storyboard */,
@@ -141,6 +145,31 @@
 				9F7F6E5B1CF5685E00CAE1C6 /* Info.plist */,
 			);
 			path = QRColourfullUITests;
+			sourceTree = "<group>";
+		};
+		9F7F6E671CF5775600CAE1C6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F6E371CF5685E00CAE1C6 /* ViewController.h */,
+				9F7F6E381CF5685E00CAE1C6 /* ViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		9F7F6E681CF5776100CAE1C6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		9F7F6E691CF5776B00CAE1C6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F6E6A1CF5779C00CAE1C6 /* sampleProtocol.h */,
+				9F7F6E6B1CF578D300CAE1C6 /* sampleProtocol.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F7F6E6C1CF578D300CAE1C6 /* sampleProtocol.m in Sources */,
 				9F7F6E391CF5685E00CAE1C6 /* ViewController.m in Sources */,
 				9F7F6E361CF5685E00CAE1C6 /* AppDelegate.m in Sources */,
 				9F7F6E331CF5685E00CAE1C6 /* main.m in Sources */,
@@ -419,6 +449,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = QRColourfull/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = KD.QRColourfull;
@@ -430,6 +461,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = QRColourfull/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = KD.QRColourfull;
