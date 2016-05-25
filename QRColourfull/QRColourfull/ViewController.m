@@ -17,10 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    sampleProtocol *sampleProtocolInstance = [[sampleProtocol alloc]init];
-    sampleProtocolInstance.delegate = self;
-    [_myLabel setText:@"Processing..."];
-    [sampleProtocolInstance startSampleProcess];
+    [[UIAccelerometer sharedAccelerometer]setDelegate:self];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -29,10 +26,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Sample protocol delegate
--(void)processCompleted{
-    [_myLabel setText:@"Process Completed"];
+#pragma mark - UIAccelerometer protocol delegate
+- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:
+(UIAcceleration *)acceleration{
+    [_xlabel setText:[NSString stringWithFormat:@"%f",acceleration.x]];
+    [_ylabel setText:[NSString stringWithFormat:@"%f",acceleration.y]];
+    [_zlabel setText:[NSString stringWithFormat:@"%f",acceleration.z]];
 }
-
 
 @end

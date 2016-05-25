@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SampleProtocol.h"
 
-@interface ViewController : UIViewController <sampleProtocolDelegate>
+@interface ViewController : UIViewController <UIAccelerometerDelegate>
 
-@property IBOutlet UILabel *myLabel;
+@property IBOutlet UILabel *xlabel;
+@property IBOutlet UILabel *ylabel;
+@property IBOutlet UILabel *zlabel;
 
 @end
 
