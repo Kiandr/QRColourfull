@@ -7,8 +7,10 @@
 //
 
 #import "ViewController.h"
+#import "sampleProtocolAVFoun.h"
+@interface ViewController ()<sampleProtocolAVFounDelegate>
 
-@interface ViewController ()
+@property (nonatomic, strong) sampleProtocolAVFoun *sampleProtocolUIView;
 
 @end
 
@@ -17,13 +19,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    sampleProtocol *sampleProtocolInstance = [[sampleProtocol alloc]init];
-    sampleProtocolInstance.delegate = self;
-    [_myLabel setText:@"Processing..."];
-    [sampleProtocolInstance startSampleProcess];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.sampleProtocolUIView = [[sampleProtocolAVFoun alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    self.sampleProtocolUIView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.sampleProtocolUIView.delegate = self;
+    [self.view addSubview:self.sampleProtocolUIView];
 }
-
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.sampleProtocolUIView stop];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.sampleProtocolUIView start];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

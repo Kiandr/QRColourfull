@@ -18,6 +18,7 @@
 		9F7F6E5A1CF5685E00CAE1C6 /* QRColourfullUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6E591CF5685E00CAE1C6 /* QRColourfullUITests.m */; };
 		9F7F6E6C1CF578D300CAE1C6 /* sampleProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6E6B1CF578D300CAE1C6 /* sampleProtocol.m */; };
 		9F7F6E6F1CF5860B00CAE1C6 /* sampleProtocolAVFoun.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6E6E1CF5860B00CAE1C6 /* sampleProtocolAVFoun.m */; };
+		9FE9E7211CF69DE5003FC447 /* AccelerateProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE9E7201CF69DE5003FC447 /* AccelerateProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,8 @@
 		9F7F6E6B1CF578D300CAE1C6 /* sampleProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = sampleProtocol.m; path = Models/sampleProtocol.m; sourceTree = "<group>"; };
 		9F7F6E6D1CF5859500CAE1C6 /* sampleProtocolAVFoun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sampleProtocolAVFoun.h; path = Models/sampleProtocolAVFoun.h; sourceTree = "<group>"; };
 		9F7F6E6E1CF5860B00CAE1C6 /* sampleProtocolAVFoun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = sampleProtocolAVFoun.m; path = Models/sampleProtocolAVFoun.m; sourceTree = "<group>"; };
+		9FE9E71F1CF69D60003FC447 /* AccelerateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccelerateProtocol.h; path = Models/AccelerateProtocol.h; sourceTree = "<group>"; };
+		9FE9E7201CF69DE5003FC447 /* AccelerateProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccelerateProtocol.m; path = Models/AccelerateProtocol.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +176,8 @@
 				9F7F6E6B1CF578D300CAE1C6 /* sampleProtocol.m */,
 				9F7F6E6D1CF5859500CAE1C6 /* sampleProtocolAVFoun.h */,
 				9F7F6E6E1CF5860B00CAE1C6 /* sampleProtocolAVFoun.m */,
+				9FE9E71F1CF69D60003FC447 /* AccelerateProtocol.h */,
+				9FE9E7201CF69DE5003FC447 /* AccelerateProtocol.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -313,6 +318,7 @@
 				9F7F6E331CF5685E00CAE1C6 /* main.m in Sources */,
 				9F7F6E6F1CF5860B00CAE1C6 /* sampleProtocolAVFoun.m in Sources */,
 				9F7F6E3F1CF5685E00CAE1C6 /* QRColourfull.xcdatamodeld in Sources */,
+				9FE9E7211CF69DE5003FC447 /* AccelerateProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +546,7 @@
 				9F7F6E601CF5685E00CAE1C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9F7F6E611CF5685E00CAE1C6 /* Build configuration list for PBXNativeTarget "QRColourfullTests" */ = {
 			isa = XCConfigurationList;
@@ -548,6 +555,7 @@
 				9F7F6E631CF5685E00CAE1C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9F7F6E641CF5685E00CAE1C6 /* Build configuration list for PBXNativeTarget "QRColourfullUITests" */ = {
 			isa = XCConfigurationList;
@@ -556,6 +564,7 @@
 				9F7F6E661CF5685E00CAE1C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

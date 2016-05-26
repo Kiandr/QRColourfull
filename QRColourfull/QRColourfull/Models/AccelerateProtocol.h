@@ -1,36 +1,29 @@
 //
-//  customAVFoudDevice.h
+//  AccelerateProtocol.h
 //  QRColourfull
 //
 //  Created by Kian Davoudi-Rad on 2016-05-25.
 //  Copyright © 2016 Kian Davoudi. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 // Protocol definition starts here
-@protocol sampleProtocolAVFounDelegate <NSObject>
+@protocol AccelerateProtocol <UIAccelerometerDelegate>
 
 @required
 - (void) processCompleted;
 @end
-
 // Protocol Definition ends here
-
-@interface sampleProtocolAVFoun : UIView
+@interface AccelerateProtocol : NSObject
 
 {
     // Delegate to respond back
-    id <sampleProtocolAVFounDelegate> _delegate;
+    id <AccelerateProtocol> _delegate;
     
 }
-
 @property (nonatomic,strong) id delegate;
 
 -(void)startSampleProcess; // Instance method
-- (void)setMetadataObjectTypes:(NSArray *)metaDataObjectTypes;
-- (void)start;
-- (void)stop;
-
 
 @end
