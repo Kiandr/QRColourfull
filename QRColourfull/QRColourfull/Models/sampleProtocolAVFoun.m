@@ -22,7 +22,8 @@
 
 @implementation sampleProtocolAVFoun
 
-#pragma sampleProtocolAVFound Init Implementation
+#pragma sampleProtocolAVFound 
+// Init Implementation delegate method (May25th2016)
 - (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
@@ -55,7 +56,7 @@
         self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
         self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         [self.layer addSublayer:self.previewLayer];
-        
+
         
         self.metadataOutput = [[AVCaptureMetadataOutput alloc] init];
         [self.captureSession addOutput:self.metadataOutput];
@@ -90,7 +91,7 @@
 //    }
 }
 - (void)layoutSubviews {
-    // Delegate Method us being updated constantly. 
+    // Delegate Method us being updated constantly.
     [super layoutSubviews];
     self.previewLayer.frame = self.bounds;
 }
@@ -112,6 +113,37 @@
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
 // Delegate method is being called.
-    NSLog(@"MetaDataWasTrigglered");
-}
+    for(AVMetadataObject *metadataObject in metadataObjects)
+    {
+        if ([metadataObject isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
+            AVMetadataMachineReadableCodeObject *readableObject = (AVMetadataMachineReadableCodeObject *)[self.previewLayer transformedMetadataObjectForMetadataObject:metadataObject];
+            BOOL foundMatch = readableObject.stringValue != nil;
+            NSString *string = readableObject.stringValue;
+            NSLog(@"%@",string);
+            NSArray *corners = readableObject.corners;
+            if (corners.count == 4 && foundMatch) {
+                
+//                CGPoint topLeftPoint = [self pointFromArray:corners atIndex:0];
+//                CGPoint bottomLeftPoint = [self pointFromArray:corners atIndex:1];
+//                CGPoint bottomRightPoint = [self pointFromArray:corners atIndex:2];
+//                CGPoint topRightPoint = [self pointFromArray:corners atIndex:3];
+                
+//                if (CGRectContainsPoint(self.matchView.bounds, topLeftPoint) &&
+//                    CGRectContainsPoint(self.matchView.bounds, topRightPoint) &&
+//                    CGRectContainsPoint(self.matchView.bounds, bottomLeftPoint) &&
+//                    CGRectContainsPoint(self.matchView.bounds, bottomRightPoint))
+//                {
+//                    [self stop];
+//                    _timer = [NSTimer scheduledTimerWithTimeInterval:self.quietPeriodAfterMatch target:self selector:@selector(start) userInfo:nil repeats:NO];
+//                    self.lastDetectionDate = [NSDate date];
+//                    
+//                    [self.matchView setFoundMatchWithTopLeftPoint:topLeftPoint
+//                                                    topRightPoint:topRightPoint
+//                                                  bottomLeftPoint:bottomLeftPoint
+//                                                 bottomRightPoint:bottomRightPoint];
+//                    [self.delegate scannerView:self didReadCode:readableObject.stringValue];
+                }
+            }
+        }
+    }
 @end
