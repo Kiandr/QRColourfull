@@ -56,27 +56,12 @@
         self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         [self.layer addSublayer:self.previewLayer];
         
+        
         self.metadataOutput = [[AVCaptureMetadataOutput alloc] init];
         [self.captureSession addOutput:self.metadataOutput];
         [self.metadataOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
         [self setMetadataObjectTypes:@[AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeQRCode]];
-        //self.previewLayer.frame = self.bounds;
-//        self.previewLayer;
-//        self.matchView = [[WECodeScannerMatchView alloc] init];
-//        [self addSubview:self.matchView];
-//        self.quietPeriodAfterMatch = 2.0;
-////        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(deactivate)
-//                                                     name:UIApplicationDidEnterBackgroundNotification
-//                                                   object:[UIApplication sharedApplication]];
-//        
-//        // Register for notification that app did enter foreground
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(activate)
-//                                                     name:UIApplicationWillEnterForegroundNotification
-//                                                   object:[UIApplication sharedApplication]];
-//        
+        
     }
     return self;
 }
@@ -105,18 +90,9 @@
 //    }
 }
 - (void)layoutSubviews {
+    // Delegate Method us being updated constantly. 
     [super layoutSubviews];
     self.previewLayer.frame = self.bounds;
-    //   self.matchView.frame = self.bounds;
-//    UIView *view = this.view.sampleProtocolAVFoun;
-//    CALayer *viewLayer = [view layer];
-//    self.previewLayer.frame = this.view.sampleProtocolAVFoun;
-    
-
-     //Doesn't work for some reason: CGAffineTransform error
-//     CGRect rect = [self.previewLayer metadataOutputRectOfInterestForRect:self.previewLayer.bounds];
-//     self.metadataOutput.rectOfInterest = rect;
-
 }
 
 
