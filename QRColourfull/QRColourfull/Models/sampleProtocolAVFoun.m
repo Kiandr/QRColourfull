@@ -244,6 +244,8 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     
     return (image);
 }
+
+#pragma mark - Encapsulation - Getters
 // GetBuffredImage encapsulation
 - (UIImage*) getrealtimeUIImageFromCaptureOutputDelegateMethod{
     
