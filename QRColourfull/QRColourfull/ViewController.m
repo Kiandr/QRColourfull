@@ -42,5 +42,17 @@
 
 
 #pragma mark - Private
+- (void)buildNewImageFromBufferForColourDetection:(UIImage*)bufferImage: didReadCode:(NSString*)decodedQRMessage{
+
+    UIImage *testBuffer =bufferImage;
+    NSString * testMessage =decodedQRMessage;
+    
+
+};
+- (void) buildNewImageFromBufferForColourDetection: (UIImage*)bufferImage: (NSString*)decodedQRMessage{
+    UIImage *testImage = bufferImage;
+    NSLog(decodedQRMessage);
+    NSLog(@"======================");
+};
 
 @end

@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "QRColourfull/Models/sampleProtocolAVFoun.m"
-            timestampString = "486093397.313993"
+            filePath = "QRColourfull/ViewController.m"
+            timestampString = "486096590.692949"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "-captureOutput:didOutputMetadataObjects:fromConnection:"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "-buildNewImageFromBufferForColourDetection::"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

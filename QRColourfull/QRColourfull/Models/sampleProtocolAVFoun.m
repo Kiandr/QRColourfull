@@ -32,7 +32,7 @@
 
 #pragma Initialization
 // Init Implementation delegate method (May25th2016)
-- (id)initWithFrame:(CGRect)frame{
+- (id) initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         self.initializeAVFoundationDeviceInputOutPut;
@@ -41,7 +41,7 @@
     }
     return self;
 }
-- (void)start {
+- (void) start {
     //    if (!_scanning) {
     //        _scanning = YES;
     //     [self.matchView reset];
@@ -54,7 +54,7 @@
     //n    }
     
 }
-- (void)stop {
+- (void) stop {
     //    if (_scanning) {
     //        _scanning = NO;
     //        [_timer invalidate];
@@ -66,7 +66,7 @@
     //        }
     //    }
 }
-- (void)layoutSubviews {
+- (void) layoutSubviews {
     // Delegate Method us being updated constantly.
     [super layoutSubviews];
     self.previewLayer.frame = self.bounds;
@@ -113,7 +113,7 @@
         [self.captureSession addInput:_avCaptureDeviceInput];
     }
 }
--(void) InitializeMetadataOutput{
+- (void) InitializeMetadataOutput{
     
     self.metadataOutput = [[AVCaptureMetadataOutput alloc] init];
     [self.captureSession addOutput:self.metadataOutput];
@@ -121,7 +121,7 @@
     [self setMetadataObjectTypes:@[AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeQRCode]];
 
 }
--(void)AddNewCaptureVideoPreviewLayer{
+- (void) AddNewCaptureVideoPreviewLayer{
 
 self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
 self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
@@ -131,32 +131,32 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 
 #pragma setLocalVariables
 // set local variable from the delegate method (May25,2016)
-- (void)setMetadataObjectTypes:(NSArray *)metaDataObjectTypes {
+- (void) setMetadataObjectTypes:(NSArray *)metaDataObjectTypes {
     [self.metadataOutput setMetadataObjectTypes:metaDataObjectTypes];
 }
 
 #pragma mark sampleProtocolAVFounDelegateSampleFunction
--(void)startSampleProcess{
+- (void) startSampleProcess{
     
     [NSTimer scheduledTimerWithTimeInterval:3.0 target:self.delegate
                                    selector:@selector(processCompleted) userInfo:nil repeats:NO];
 }
-- (CGPoint)pointFromArray:(NSArray *)points atIndex:(NSUInteger)index{NSDictionary *dict = [points objectAtIndex:index];
+- (CGPoint) pointFromArray:(NSArray *)points atIndex:(NSUInteger)index{NSDictionary *dict = [points objectAtIndex:index];
     CGPoint point;
     CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)dict, &point);
     return [self.animationView convertPoint:point fromView:self];
 }
 
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
+- (void) captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
     // Delegate method is being called.
     for(AVMetadataObject *metadataObject in metadataObjects)
     {
         if ([metadataObject isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
             AVMetadataMachineReadableCodeObject *readableObject = (AVMetadataMachineReadableCodeObject *)[self.previewLayer transformedMetadataObjectForMetadataObject:metadataObject];
             BOOL foundMatch = readableObject.stringValue != nil;
-            NSString *string = readableObject.stringValue;
-            NSLog(@"%@",string);
+            NSString *decodedQRMessage = readableObject.stringValue;
+            NSLog(@"%@",decodedQRMessage);
             NSArray *corners = readableObject.corners;
             if (corners.count == 4 && foundMatch) {
                 
@@ -165,12 +165,12 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                 CGPoint bottomRightPoint = [self pointFromArray:corners atIndex:2];
                 CGPoint topRightPoint = [self pointFromArray:corners atIndex:3];
                 
-                if (CGRectContainsPoint(self.animationView.bounds, topLeftPoint) &&
-                    CGRectContainsPoint(self.animationView.bounds, topRightPoint) &&
-                    CGRectContainsPoint(self.animationView.bounds, bottomLeftPoint) &&
-                    CGRectContainsPoint(self.animationView.bounds, bottomRightPoint))
-                {
-                    [self stop];
+//                if (CGRectContainsPoint(self.animationView.bounds, topLeftPoint) &&
+//                    CGRectContainsPoint(self.animationView.bounds, topRightPoint) &&
+//                    CGRectContainsPoint(self.animationView.bounds, bottomLeftPoint) &&
+//                    CGRectContainsPoint(self.animationView.bounds, bottomRightPoint))
+//                {
+////                    [self stop];
                     //_timer = [NSTimer scheduledTimerWithTimeInterval:self.quietPeriodAfterMatch target:self selector:@selector(start) userInfo:nil repeats:NO];
                     self.lastDetectionDate = [NSDate date];
                     
@@ -178,8 +178,12 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                                                         topRightPoint:topRightPoint
                                                       bottomLeftPoint:bottomLeftPoint
                                                      bottomRightPoint:bottomRightPoint];
-                    //[self.delegate scannerView:self didReadCode:readableObject.stringValue];
-                }
+                    //[self.delegate sampleProtocolAVFoun:self didReadCode:readableObject.stringValue];
+//                    [self.buildNewImageFromBufferForColourDetection bufferImage:realtimeUIImageFromCaptureOutputDelegateMethod
+//                                                                 didReadCode: decodedQRMessage];
+//                    [self.delegate processCompleted:decodedQRMessage];
+                    [self.delegate buildNewImageFromBufferForColourDetection: (UIImage*) _realtimeUIImageFromCaptureOutputDelegateMethod :(NSString*) decodedQRMessage];
+//                }
             }
         }
     }
@@ -187,11 +191,11 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 
 #pragma mark - Protocol AVCaptureVideoDataOutputSampleBufferDelegate
 // Delegate routine that is called when a sample buffer was written
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+- (void) captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     // Create a UIImage from the sample buffer data
     NSLog(@"Delegate routine that is called when a sample buffer was written");
     // image for Open cv
-    UIImage *image = [self imageFromSampleBuffer:sampleBuffer];
+    _realtimeUIImageFromCaptureOutputDelegateMethod = [self imageFromSampleBuffer:sampleBuffer];
     
     // Process Image in Bus Layer
     

@@ -195,6 +195,5 @@ static NSString * const flashAnimationID = @"animateFlash";
     [self animateToMatchWithTopLeftPoint:topLeftPoint topRightPoint:topRightPoint bottomLeftPoint:bottomLeftPoint bottomRightPoint:bottomRightPoint];
 }
 
-
 @end
 
