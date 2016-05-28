@@ -8,7 +8,8 @@
 
 #import "ViewController.h"
 #import "sampleProtocolAVFoun.h"
-@interface ViewController ()<sampleProtocolAVFounDelegate>
+#import "AnimationViewProtocol.h"
+@interface ViewController ()<sampleProtocolAVFounDelegate,AnimationViewProtocolDelegate>
 
 @property (nonatomic, strong) sampleProtocolAVFoun *sampleProtocolUIView;
 
@@ -23,10 +24,12 @@
     self.sampleProtocolUIView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.sampleProtocolUIView.delegate = self;
     [self.view addSubview:self.sampleProtocolUIView];
+    
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.sampleProtocolUIView stop];
+    
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -37,10 +40,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Sample protocol delegate
--(void)processCompleted{
-    [_myLabel setText:@"Process Completed"];
-}
 
+#pragma mark - Private
 
 @end

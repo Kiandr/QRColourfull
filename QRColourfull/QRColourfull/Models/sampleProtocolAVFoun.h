@@ -11,6 +11,7 @@
 // Protocol definition starts here
 @protocol sampleProtocolAVFounDelegate <NSObject>
 
+
 @required
 - (void) processCompleted;
 @end
@@ -26,11 +27,17 @@
 }
 
 @property (nonatomic,strong) id delegate;
+// Public
 
--(void)startSampleProcess; // Instance method
-- (void)setMetadataObjectTypes:(NSArray *)metaDataObjectTypes;
-- (void)start;
-- (void)stop;
+// This method should be implemented on the refferee
+- (void) didReadCode:(NSString*)code;
+- (void) startSampleProcess; // Instance method
+- (void) setMetadataObjectTypes:(NSArray *)metaDataObjectTypes;
+- (void) start;
+- (void) stop;
+
+
+
 
 
 @end
