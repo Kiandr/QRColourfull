@@ -173,6 +173,8 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                                               bottomLeftPoint:bottomLeftPoint
                                              bottomRightPoint:bottomRightPoint
                                                   bufferImage:(UIImage*)_realtimeUIImageFromCaptureOutputDelegateMethod
+                                             decodedQRMessage: (NSString*)decodedQRMessage
+                 
                  ];
 
                 
