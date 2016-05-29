@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "sampleProtocolAVFoun.h"
 #import "AnimationViewProtocol.h"
+#import "ModelQRManagerProtocol.h"
 @interface ViewController ()<sampleProtocolAVFounDelegate,AnimationViewProtocolDelegate>
 
 @property (nonatomic, strong) sampleProtocolAVFoun *sampleProtocolUIView;
@@ -53,6 +54,7 @@
     UIImage *testImage = bufferImage;
     NSLog(decodedQRMessage);
     NSLog(@"======================");
+    
 };
 
 @end

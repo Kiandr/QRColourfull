@@ -10,25 +10,26 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import "AnimationViewProtocol.h"
-@interface sampleProtocolAVFoun () <AVCaptureMetadataOutputObjectsDelegate, AnimationViewProtocolDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
+#import "ModelQRManagerProtocol.h"
+
+@interface sampleProtocolAVFoun () <AVCaptureMetadataOutputObjectsDelegate, AnimationViewProtocolDelegate,AVCaptureVideoDataOutputSampleBufferDelegate,ModelQRManagerProtocolDelegate>
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property (nonatomic, strong) NSDate *lastDetectionDate;
 @property (nonatomic, strong) AVCaptureMetadataOutput *metadataOutput;
-@property (nonatomic, strong) AnimationViewProtocol *animationView;
+@property (nonatomic, strong) ModelQRManagerProtocol *matchView;
 @property (nonatomic, strong) AVCaptureDevice *avCaptureDevice;
 @property (nonatomic, strong) AVCaptureDeviceInput *avCaptureDeviceInput;
 @property (nonatomic, strong) AVCaptureVideoDataOutput *avCaptureVideoDataOutput;
 @property (nonatomic, strong) dispatch_queue_t videoDataOutputQueue;
 @property (nonatomic, strong) dispatch_queue_t audioDataOutputQueue;
 @property (nonatomic, strong) UIImage *realtimeUIImageFromCaptureOutputDelegateMethod;
-
-
+//@property (nonatomic, strong) ModelQRRect *qRModel;
 @end
 
 
-@implementation sampleProtocolAVFoun
+@implementation sampleProtocolAVFoun :UIView
 
 #pragma Initialization
 // Init Implementation delegate method (May25th2016)
@@ -38,6 +39,7 @@
         self.initializeAVFoundationDeviceInputOutPut;
         self.AddNewCaptureVideoPreviewLayer;
         self.InitializeMetadataOutput;
+        self.matchView = [[ModelQRManagerProtocol alloc] init];
     }
     return self;
 }
@@ -144,7 +146,7 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 - (CGPoint) pointFromArray:(NSArray *)points atIndex:(NSUInteger)index{NSDictionary *dict = [points objectAtIndex:index];
     CGPoint point;
     CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)dict, &point);
-    return [self.animationView convertPoint:point fromView:self];
+    return [self.matchView convertPoint:point fromView:self];
 }
 
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
@@ -160,30 +162,22 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
             NSArray *corners = readableObject.corners;
             if (corners.count == 4 && foundMatch) {
                 
-                CGPoint topLeftPoint = [self pointFromArray:corners atIndex:0];
-                CGPoint bottomLeftPoint = [self pointFromArray:corners atIndex:1];
+                CGPoint topLeftPoint     = [self pointFromArray:corners atIndex:0];
+                CGPoint bottomLeftPoint  = [self pointFromArray:corners atIndex:1];
                 CGPoint bottomRightPoint = [self pointFromArray:corners atIndex:2];
-                CGPoint topRightPoint = [self pointFromArray:corners atIndex:3];
+                CGPoint topRightPoint    = [self pointFromArray:corners atIndex:3];
+
                 
-//                if (CGRectContainsPoint(self.animationView.bounds, topLeftPoint) &&
-//                    CGRectContainsPoint(self.animationView.bounds, topRightPoint) &&
-//                    CGRectContainsPoint(self.animationView.bounds, bottomLeftPoint) &&
-//                    CGRectContainsPoint(self.animationView.bounds, bottomRightPoint))
-//                {
-////                    [self stop];
-                    //_timer = [NSTimer scheduledTimerWithTimeInterval:self.quietPeriodAfterMatch target:self selector:@selector(start) userInfo:nil repeats:NO];
-                    self.lastDetectionDate = [NSDate date];
-                    
-                    [self.animationView setFoundMatchWithTopLeftPoint:topLeftPoint
-                                                        topRightPoint:topRightPoint
-                                                      bottomLeftPoint:bottomLeftPoint
-                                                     bottomRightPoint:bottomRightPoint];
-                    //[self.delegate sampleProtocolAVFoun:self didReadCode:readableObject.stringValue];
-//                    [self.buildNewImageFromBufferForColourDetection bufferImage:realtimeUIImageFromCaptureOutputDelegateMethod
-//                                                                 didReadCode: decodedQRMessage];
-//                    [self.delegate processCompleted:decodedQRMessage];
-                    [self.delegate buildNewImageFromBufferForColourDetection: (UIImage*) _realtimeUIImageFromCaptureOutputDelegateMethod :(NSString*) decodedQRMessage];
-//                }
+                [self.matchView setFoundMatchWithTopLeftPoint:topLeftPoint
+                                                topRightPoint:topRightPoint
+                                              bottomLeftPoint:bottomLeftPoint
+                                             bottomRightPoint:bottomRightPoint
+                                                  bufferImage:(UIImage*)_realtimeUIImageFromCaptureOutputDelegateMethod
+                 ];
+
+                
+
+                
             }
         }
     }
@@ -192,20 +186,9 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 #pragma mark - Protocol AVCaptureVideoDataOutputSampleBufferDelegate
 // Delegate routine that is called when a sample buffer was written
 - (void) captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-    // Create a UIImage from the sample buffer data
+    
     NSLog(@"Delegate routine that is called when a sample buffer was written");
-    // image for Open cv
     _realtimeUIImageFromCaptureOutputDelegateMethod = [self imageFromSampleBuffer:sampleBuffer];
-    
-    // Process Image in Bus Layer
-    
-    //    dispatch_sync(dispatch_get_main_queue(), ^{
-    //        _imageLayer.contents = (__bridge id)self.returnImagProceecedWithOpenCv.CGImage;
-    //        _customPreviewLayer.contents = (__bridge id)self.returnImagProceecedWithOpenCv.CGImage;
-    //    });
-    //
-    
-    
     
 }
 

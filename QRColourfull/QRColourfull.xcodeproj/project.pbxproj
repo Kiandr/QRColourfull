@@ -18,6 +18,7 @@
 		9F7F6E5A1CF5685E00CAE1C6 /* QRColourfullUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6E591CF5685E00CAE1C6 /* QRColourfullUITests.m */; };
 		9F7F6E6C1CF578D300CAE1C6 /* sampleProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6E6B1CF578D300CAE1C6 /* sampleProtocol.m */; };
 		9F7F6E6F1CF5860B00CAE1C6 /* sampleProtocolAVFoun.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6E6E1CF5860B00CAE1C6 /* sampleProtocolAVFoun.m */; };
+		9F8044901CFA58260068CD17 /* ModelQRManagerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F80448F1CFA58260068CD17 /* ModelQRManagerProtocol.m */; };
 		9FA500C71CF8F18A00F0A984 /* AnimationViewProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA500C61CF8F18A00F0A984 /* AnimationViewProtocol.m */; };
 		9FE9E7211CF69DE5003FC447 /* AccelerateProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE9E7201CF69DE5003FC447 /* AccelerateProtocol.m */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,9 @@
 		9F7F6E6B1CF578D300CAE1C6 /* sampleProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = sampleProtocol.m; path = Models/sampleProtocol.m; sourceTree = "<group>"; };
 		9F7F6E6D1CF5859500CAE1C6 /* sampleProtocolAVFoun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sampleProtocolAVFoun.h; path = Models/sampleProtocolAVFoun.h; sourceTree = "<group>"; };
 		9F7F6E6E1CF5860B00CAE1C6 /* sampleProtocolAVFoun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = sampleProtocolAVFoun.m; path = Models/sampleProtocolAVFoun.m; sourceTree = "<group>"; };
+		9F80448F1CFA58260068CD17 /* ModelQRManagerProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModelQRManagerProtocol.m; path = Models/ModelQRManagerProtocol.m; sourceTree = "<group>"; };
+		9F8044911CFA58740068CD17 /* ModelQRManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelQRManagerProtocol.h; path = Models/ModelQRManagerProtocol.h; sourceTree = "<group>"; };
+		9F8044921CFA5CC80068CD17 /* MyQRManagedObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MyQRManagedObject.h; path = Models/MyQRManagedObject.h; sourceTree = "<group>"; };
 		9FA500C51CF8F17300F0A984 /* AnimationViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationViewProtocol.h; path = Models/AnimationViewProtocol.h; sourceTree = "<group>"; };
 		9FA500C61CF8F18A00F0A984 /* AnimationViewProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationViewProtocol.m; path = Models/AnimationViewProtocol.m; sourceTree = "<group>"; };
 		9FE9E71F1CF69D60003FC447 /* AccelerateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccelerateProtocol.h; path = Models/AccelerateProtocol.h; sourceTree = "<group>"; };
@@ -177,12 +181,15 @@
 			children = (
 				9FE9E71F1CF69D60003FC447 /* AccelerateProtocol.h */,
 				9FE9E7201CF69DE5003FC447 /* AccelerateProtocol.m */,
+				9FA500C51CF8F17300F0A984 /* AnimationViewProtocol.h */,
+				9FA500C61CF8F18A00F0A984 /* AnimationViewProtocol.m */,
 				9F7F6E6A1CF5779C00CAE1C6 /* sampleProtocol.h */,
 				9F7F6E6B1CF578D300CAE1C6 /* sampleProtocol.m */,
 				9F7F6E6D1CF5859500CAE1C6 /* sampleProtocolAVFoun.h */,
 				9F7F6E6E1CF5860B00CAE1C6 /* sampleProtocolAVFoun.m */,
-				9FA500C51CF8F17300F0A984 /* AnimationViewProtocol.h */,
-				9FA500C61CF8F18A00F0A984 /* AnimationViewProtocol.m */,
+				9F8044911CFA58740068CD17 /* ModelQRManagerProtocol.h */,
+				9F80448F1CFA58260068CD17 /* ModelQRManagerProtocol.m */,
+				9F8044921CFA5CC80068CD17 /* MyQRManagedObject.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -321,6 +328,7 @@
 				9F7F6E391CF5685E00CAE1C6 /* ViewController.m in Sources */,
 				9F7F6E361CF5685E00CAE1C6 /* AppDelegate.m in Sources */,
 				9F7F6E331CF5685E00CAE1C6 /* main.m in Sources */,
+				9F8044901CFA58260068CD17 /* ModelQRManagerProtocol.m in Sources */,
 				9F7F6E6F1CF5860B00CAE1C6 /* sampleProtocolAVFoun.m in Sources */,
 				9FA500C71CF8F18A00F0A984 /* AnimationViewProtocol.m in Sources */,
 				9F7F6E3F1CF5685E00CAE1C6 /* QRColourfull.xcdatamodeld in Sources */,

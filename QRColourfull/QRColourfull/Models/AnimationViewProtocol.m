@@ -15,7 +15,7 @@
 
 @end
 
-@implementation AnimationViewProtocol
+@implementation AnimationViewProtocol :UIView
 
 BOOL _set;
 CAShapeLayer *_shapeLayer;
