@@ -42,13 +42,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QRColourfull/Models/ModelQRManagerProtocol.m"
-            timestampString = "486198179.525735"
+            timestampString = "486453936.424876"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "@implementation ModelQRManagerProtocol"
-            landmarkType = "3">
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "-setFoundMatchWithTopLeftPoint:topRightPoint:bottomLeftPoint:bottomRightPoint:bufferImage:decodedQRMessage:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
