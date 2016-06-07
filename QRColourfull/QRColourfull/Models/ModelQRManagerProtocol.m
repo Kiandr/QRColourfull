@@ -32,6 +32,8 @@
 - (UIImage*) ExtractQRFromUIImage:(UIImage*) uiimageFromDidOutputSampleBuffer;
 - (UIColor*) GeUIColourFromUIimageFromDidOutputSampleBuffer:(UIImage*)uiimageFromDidOutputSampleBuffer;
 - (UIColor *) colorAtPixel:(CGPoint)point inImage:(UIImage *)image;
+- (UIImage *)imageFromLayer:(CALayer *)layer;
+
 @end
 
 @implementation ModelQRManagerProtocol: UIView
@@ -121,7 +123,9 @@ static NSString * const flashAnimationID = @"animateFlash";
 //    //CGImageRelease(imageRef);
     
     // perform animation too:
-        [self setFoundMatchWithTopLeftPoint:topLeftPoint topRightPoint:topRightPoint bottomLeftPoint:bottomLeftPoint bottomRightPoint:bottomRightPoint];
+    _uiimageFromDidOutputSampleBuffer = bufferImage;
+    _decodedString =decodedQRMessage;
+    [self setFoundMatchWithTopLeftPoint:topLeftPoint topRightPoint:topRightPoint bottomLeftPoint:bottomLeftPoint bottomRightPoint:bottomRightPoint];
 
 
 }
@@ -264,6 +268,8 @@ static NSString * const flashAnimationID = @"animateFlash";
         animation.delegate = self;
         _shapeLayer.path = toPath;
         [_shapeLayer addAnimation:animation forKey:matchAnimationID];
+        //[self imageFromLayer:_shapeLayer];
+        
         CFRelease(toPath);
     }
 }
@@ -294,6 +300,23 @@ static NSString * const flashAnimationID = @"animateFlash";
     _set = YES;
     [self animateToMatchWithTopLeftPoint:topLeftPoint topRightPoint:topRightPoint bottomLeftPoint:bottomLeftPoint bottomRightPoint:bottomRightPoint];
 }
+
+
+- (UIImage *)imageFromLayer:(CALayer *)layer
+{
+    
+    UIGraphicsBeginImageContextWithOptions(layer.frame.size, NO, 0);
+    
+    [layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *outputImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    _uiimageFromDidOutputSampleBuffer = [self imageRotatedByDegrees:_uiimageFromDidOutputSampleBuffer deg:90];
+
+    layer.contents = (id) _uiimageFromDidOutputSampleBuffer.CGImage;
+    return outputImage;
+}
+
 
 @end
 

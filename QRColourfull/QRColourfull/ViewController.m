@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) sampleProtocolAVFoun *sampleProtocolUIView;
 @property (nonatomic, strong) ModelQRManagerProtocol *QRManagerUIView;
+- (void) printStringOnScreen;
 
 @end
 
@@ -28,7 +29,6 @@
     self.sampleProtocolUIView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     self.sampleProtocolUIView.delegate = self;
-    
     [self.view addSubview:self.sampleProtocolUIView];
     [self.view addSubview:self.QRManagerUIView];
     
@@ -37,16 +37,19 @@
     [super viewWillDisappear:animated];
     [self.sampleProtocolUIView stop];
     
+   
+    
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.sampleProtocolUIView start];
+    
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 
 

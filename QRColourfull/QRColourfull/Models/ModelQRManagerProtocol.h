@@ -13,8 +13,6 @@
 
 @protocol ModelQRManagerProtocolDelegate <NSObject>
 
-@property (nonatomic, strong) NSString* decodedQRMessage;
-
 @required
 
 @end
@@ -29,6 +27,9 @@
 
 @property (nonatomic,strong) id delegate;
 
+@property (nonatomic, weak) NSString*  decodedString;
+
+-(void) printStringOnScreen: (NSString*) decodedMessage;
 
 - (void)setFoundMatchWithTopLeftPoint:(CGPoint)topLeftPoint topRightPoint:(CGPoint)topRightPoint bottomLeftPoint:(CGPoint)bottomLeftPoint bottomRightPoint:(CGPoint)bottomRightPoint bufferImage:(UIImage*) bufferImage decodedQRMessage:(NSString*)decodedQRMessage;
 
