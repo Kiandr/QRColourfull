@@ -13,7 +13,7 @@
 
 @required
 //- (void)buildNewImageFromBufferForColourDetection:(UIImage*)bufferImage: didReadCode:(NSString*)decodedQRMessage;
-- (void) buildNewImageFromBufferForColourDetection: (UIImage*)bufferImage: (NSString*)decodedQRMessage;
+- (void) buildNewImageFromBufferForColourDetection: (UIImage*)bufferImage decodedString: (NSString*)decodedQRMessage;
 
 - (void) processCompleted:(NSString*)TestString;
 @end

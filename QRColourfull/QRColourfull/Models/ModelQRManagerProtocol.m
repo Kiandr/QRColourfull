@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString* decodedQRMessage;
 @property (nonatomic, strong) MyQRManagedObject* QRModel;
 
+
 - (void) PlayBeepOnSuccess;
 - (UIImage*) ExtractQRFromUIImage:(UIImage*) uiimageFromDidOutputSampleBuffer;
 - (UIColor*) GeUIColourFromUIimageFromDidOutputSampleBuffer:(UIImage*)uiimageFromDidOutputSampleBuffer;
@@ -27,12 +28,30 @@
 
 @implementation ModelQRManagerProtocol: UIView
 
+// Animation Layer
+ BOOL _set;
+ CAShapeLayer *_shapeLayer;
+
 - (id) initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-//        self.initializeAVFoundationDeviceInputOutPut;
-//        self.AddNewCaptureVideoPreviewLayer;
-//        self.InitializeMetadataOutput;
+            // Initialization code
+//            self.matchFoundColor = [UIColor redColor];
+//            self.scanningColor = [UIColor whiteColor];
+//            self.backgroundColor = [UIColor clearColor];
+//            
+//            self.minMatchBoxHeight = 10.0f;
+        
+            _shapeLayer = [CAShapeLayer layer];
+            _shapeLayer.fillColor = [[UIColor clearColor] CGColor];
+//            _shapeLayer.strokeColor = [self.scanningColor CGColor];
+            _shapeLayer.lineWidth = 2.0;
+            _shapeLayer.fillRule = kCAFillRuleNonZero;
+            _shapeLayer.frame = self.bounds;
+            [self.layer addSublayer:_shapeLayer];
+            
+            [self reset];
+
     }
     return self;
 }
@@ -84,10 +103,9 @@
     UIColor * testColour = [self colorAtPixel: topLeftPoint inImage:bufferImage];
     CGSize testSize = CGSizeMake(100.1, 100.1); //alloc]init];
     UIImage *testImage =  [self imageWithColor:testColour size:testSize];
-
-    
-    CGRect cropRect = CGRectMake(100,100,100,100);
-    CGImageRef imageRef = CGImageCreateWithImageInRect([bufferImage CGImage], cropRect);
+    UIImage * PortraitImage = [self imageRotatedByDegrees: bufferImage deg:90.0];
+    CGRect cropRect = CGRectMake(topLeftPoint.x,topLeftPoint.y,1000,100);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([PortraitImage CGImage], cropRect);
     // or use the UIImage wherever you like
     UIImage *TestCopped = [UIImage imageWithCGImage:imageRef];
     //CGImageRelease(imageRef);
@@ -106,5 +124,38 @@
     return image;
 }
 
+
+
+- (UIImage *)imageRotatedByDegrees:(UIImage*)oldImage deg:(CGFloat)degrees{
+    // calculate the size of the rotated view's containing box for our drawing space
+    UIView *rotatedViewBox = [[UIView alloc] initWithFrame:CGRectMake(0,0,oldImage.size.width, oldImage.size.height)];
+    CGAffineTransform t = CGAffineTransformMakeRotation(degrees * M_PI / 180);
+    rotatedViewBox.transform = t;
+    CGSize rotatedSize = rotatedViewBox.frame.size;
+    // Create the bitmap context
+    UIGraphicsBeginImageContext(rotatedSize);
+    CGContextRef bitmap = UIGraphicsGetCurrentContext();
+    
+    // Move the origin to the middle of the image so we will rotate and scale around the center.
+    CGContextTranslateCTM(bitmap, rotatedSize.width/2, rotatedSize.height/2);
+    
+    //   // Rotate the image context
+    CGContextRotateCTM(bitmap, (degrees * M_PI / 180));
+    
+    // Now, draw the rotated/scaled image into the context
+    CGContextScaleCTM(bitmap, 1.0, -1.0);
+    CGContextDrawImage(bitmap, CGRectMake(-oldImage.size.width / 2, -oldImage.size.height / 2, oldImage.size.width, oldImage.size.height), [oldImage CGImage]);
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+- (void)reset {
+    [_shapeLayer removeAllAnimations];
+//    _shapeLayer.strokeColor = [self.scanningColor CGColor];
+    _set = NO;
+    [self setNeedsLayout];
+}
 @end
 

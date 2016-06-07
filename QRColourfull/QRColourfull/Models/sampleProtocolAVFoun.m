@@ -9,10 +9,10 @@
 #import "sampleProtocolAVFoun.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AVFoundation/AVFoundation.h>
-#import "AnimationViewProtocol.h"
+
 #import "ModelQRManagerProtocol.h"
 
-@interface sampleProtocolAVFoun () <AVCaptureMetadataOutputObjectsDelegate, AnimationViewProtocolDelegate,AVCaptureVideoDataOutputSampleBufferDelegate,ModelQRManagerProtocolDelegate>
+@interface sampleProtocolAVFoun () <AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutputSampleBufferDelegate,ModelQRManagerProtocolDelegate>
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
