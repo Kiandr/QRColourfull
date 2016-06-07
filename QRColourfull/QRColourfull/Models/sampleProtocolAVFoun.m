@@ -18,7 +18,7 @@
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property (nonatomic, strong) NSDate *lastDetectionDate;
 @property (nonatomic, strong) AVCaptureMetadataOutput *metadataOutput;
-@property (nonatomic, strong) ModelQRManagerProtocol *matchView;
+@property (nonatomic, strong) ModelQRManagerProtocol *QRManagerProtocol;
 @property (nonatomic, strong) AVCaptureDevice *avCaptureDevice;
 @property (nonatomic, strong) AVCaptureDeviceInput *avCaptureDeviceInput;
 @property (nonatomic, strong) AVCaptureVideoDataOutput *avCaptureVideoDataOutput;
@@ -39,7 +39,7 @@
         self.initializeAVFoundationDeviceInputOutPut;
         self.AddNewCaptureVideoPreviewLayer;
         self.InitializeMetadataOutput;
-        self.matchView = [[ModelQRManagerProtocol alloc] init];
+        self.QRManagerProtocol = [[ModelQRManagerProtocol alloc] init];
     }
     return self;
 }
@@ -146,7 +146,7 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 - (CGPoint) pointFromArray:(NSArray *)points atIndex:(NSUInteger)index{NSDictionary *dict = [points objectAtIndex:index];
     CGPoint point;
     CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)dict, &point);
-    return [self.matchView convertPoint:point fromView:self];
+    return [self.QRManagerProtocol convertPoint:point fromView:self];
 }
 
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
@@ -168,7 +168,7 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                 CGPoint topRightPoint    = [self pointFromArray:corners atIndex:3];
 
                 
-                [self.matchView setFoundMatchWithTopLeftPoint:topLeftPoint
+                [self.QRManagerProtocol setFoundMatchWithTopLeftPoint:topLeftPoint
                                                 topRightPoint:topRightPoint
                                               bottomLeftPoint:bottomLeftPoint
                                              bottomRightPoint:bottomRightPoint

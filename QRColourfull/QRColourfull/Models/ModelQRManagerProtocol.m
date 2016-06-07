@@ -15,8 +15,11 @@
 
 @interface ModelQRManagerProtocol ()
 
+- (void)scannerView:(ModelQRManagerProtocol *)scannerView didReadCode:(NSString*)code;
+
+
 @property (nonatomic, strong) UIImage* uiimageFromDidOutputSampleBuffer;
-@property (nonatomic, strong) NSString* decodedQRMessage;
+
 @property (nonatomic, strong) MyQRManagedObject* QRModel;
 
 @property (nonatomic, strong) UIColor *matchFoundColor;
@@ -105,16 +108,21 @@ static NSString * const flashAnimationID = @"animateFlash";
 - (void)setFoundMatchWithTopLeftPoint:(CGPoint)topLeftPoint topRightPoint:(CGPoint)topRightPoint bottomLeftPoint:(CGPoint)bottomLeftPoint bottomRightPoint:(CGPoint)bottomRightPoint bufferImage:(UIImage*) bufferImage decodedQRMessage:(NSString*) decodedQRMessage{
     NSLog(@"TestUIViewIsRunning");
     NSLog(@"%@",decodedQRMessage);
+    
+    
+//    UIColor * testColour = [self colorAtPixel: topLeftPoint inImage:bufferImage];
+//    CGSize testSize = CGSizeMake(100.1, 100.1); //alloc]init];
+//    UIImage *testImage =  [self imageWithColor:testColour size:testSize];
+//    UIImage * PortraitImage = [self imageRotatedByDegrees: bufferImage deg:90.0];
+//    CGRect cropRect = CGRectMake(topLeftPoint.x,topLeftPoint.y,1000,100);
+//    CGImageRef imageRef = CGImageCreateWithImageInRect([PortraitImage CGImage], cropRect);
+//    // or use the UIImage wherever you like
+//    UIImage *TestCopped = [UIImage imageWithCGImage:imageRef];
+//    //CGImageRelease(imageRef);
+    
+    // perform animation too:
+        [self setFoundMatchWithTopLeftPoint:topLeftPoint topRightPoint:topRightPoint bottomLeftPoint:bottomLeftPoint bottomRightPoint:bottomRightPoint];
 
-    UIColor * testColour = [self colorAtPixel: topLeftPoint inImage:bufferImage];
-    CGSize testSize = CGSizeMake(100.1, 100.1); //alloc]init];
-    UIImage *testImage =  [self imageWithColor:testColour size:testSize];
-    UIImage * PortraitImage = [self imageRotatedByDegrees: bufferImage deg:90.0];
-    CGRect cropRect = CGRectMake(topLeftPoint.x,topLeftPoint.y,1000,100);
-    CGImageRef imageRef = CGImageCreateWithImageInRect([PortraitImage CGImage], cropRect);
-    // or use the UIImage wherever you like
-    UIImage *TestCopped = [UIImage imageWithCGImage:imageRef];
-    //CGImageRelease(imageRef);
 
 }
 - (UIImage*) imageWithColor:(UIColor*)color size:(CGSize)size{
@@ -286,7 +294,6 @@ static NSString * const flashAnimationID = @"animateFlash";
     _set = YES;
     [self animateToMatchWithTopLeftPoint:topLeftPoint topRightPoint:topRightPoint bottomLeftPoint:bottomLeftPoint bottomRightPoint:bottomRightPoint];
 }
-
 
 @end
 

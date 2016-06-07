@@ -13,6 +13,7 @@
 
 @protocol ModelQRManagerProtocolDelegate <NSObject>
 
+@property (nonatomic, strong) NSString* decodedQRMessage;
 
 @required
 
