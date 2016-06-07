@@ -8,13 +8,13 @@
 
 #import "ViewController.h"
 #import "sampleProtocolAVFoun.h"
-
 #import "ModelQRManagerProtocol.h"
 
 @interface ViewController ()<sampleProtocolAVFounDelegate>
 
 @property (nonatomic, strong) sampleProtocolAVFoun *sampleProtocolUIView;
 @property (nonatomic, strong) ModelQRManagerProtocol *QRManagerUIView;
+
 @end
 
 @implementation ViewController
@@ -23,14 +23,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.sampleProtocolUIView = [[sampleProtocolAVFoun alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-    //self.QRManagerUIView = [[ModelQRManagerProtocol alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    self.QRManagerUIView = [[ModelQRManagerProtocol alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     
     self.sampleProtocolUIView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     self.sampleProtocolUIView.delegate = self;
     
     [self.view addSubview:self.sampleProtocolUIView];
-   // [self.view addSubview:self.QRManagerUIView];
+    [self.view addSubview:self.QRManagerUIView];
     
 }
 - (void)viewWillDisappear:(BOOL)animated {
