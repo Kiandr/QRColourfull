@@ -29,9 +29,10 @@
 
 @property (nonatomic, weak) NSString*  decodedString;
 
--(void) printStringOnScreen: (NSString*) decodedMessage;
+- (void) printStringOnScreen: (NSString*) decodedMessage;
 
 - (void)setFoundMatchWithTopLeftPoint:(CGPoint)topLeftPoint topRightPoint:(CGPoint)topRightPoint bottomLeftPoint:(CGPoint)bottomLeftPoint bottomRightPoint:(CGPoint)bottomRightPoint bufferImage:(UIImage*) bufferImage decodedQRMessage:(NSString*)decodedQRMessage;
+
 
 
 @end

@@ -32,10 +32,12 @@
     [self.view addSubview:self.sampleProtocolUIView];
     [self.view addSubview:self.QRManagerUIView];
     
+    
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.sampleProtocolUIView stop];
+    
     
    
     
@@ -43,6 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.sampleProtocolUIView start];
+    [self.sampleProtocolUIView updateString:self.view];
     
     
 }

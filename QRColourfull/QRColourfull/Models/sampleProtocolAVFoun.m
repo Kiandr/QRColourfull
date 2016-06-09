@@ -25,7 +25,11 @@
 @property (nonatomic, strong) dispatch_queue_t videoDataOutputQueue;
 @property (nonatomic, strong) dispatch_queue_t audioDataOutputQueue;
 @property (nonatomic, strong) UIImage *realtimeUIImageFromCaptureOutputDelegateMethod;
-//@property (nonatomic, strong) ModelQRRect *qRModel;
+@property (nonatomic, strong) NSString *qRDecodedString;
+@property (nonatomic, strong) UIView *superView;
+@property (nonatomic, strong) UILabel *label;
+@property(nonatomic,strong) UIColor *detectedColour;
+
 @end
 
 
@@ -157,8 +161,9 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         if ([metadataObject isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
             AVMetadataMachineReadableCodeObject *readableObject = (AVMetadataMachineReadableCodeObject *)[self.previewLayer transformedMetadataObjectForMetadataObject:metadataObject];
             BOOL foundMatch = readableObject.stringValue != nil;
-            NSString *decodedQRMessage = readableObject.stringValue;
-            NSLog(@"%@",decodedQRMessage);
+            _qRDecodedString = readableObject.stringValue;
+            _label.text = _qRDecodedString;
+            NSLog(@"%@",_qRDecodedString);
             NSArray *corners = readableObject.corners;
             if (corners.count == 4 && foundMatch) {
                 
@@ -173,7 +178,7 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                                               bottomLeftPoint:bottomLeftPoint
                                              bottomRightPoint:bottomRightPoint
                                                   bufferImage:(UIImage*)_realtimeUIImageFromCaptureOutputDelegateMethod
-                                             decodedQRMessage: (NSString*)decodedQRMessage
+                                             decodedQRMessage: (NSString*)_qRDecodedString
                  
                  ];
 
@@ -245,5 +250,22 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 
     return retrunObject;
 }
+
+- (void) updateString :(UIView*) mainView
+{
+    _superView =mainView;
+    _label = [[UILabel alloc] initWithFrame:CGRectMake(40, 30, 300, 80)];
+    
+    _label.backgroundColor = [UIColor clearColor];
+    _label.textAlignment = NSTextAlignmentCenter;
+    _label.textColor = [UIColor colorWithCIColor:[[CIColor alloc]initWithRed:0.9 green:0.9 blue:0.9]];
+    _label.numberOfLines = 3;
+    _label.lineBreakMode = UILineBreakModeWordWrap;
+    _label.adjustsFontSizeToFitWidth;
+    _label.text = _qRDecodedString;
+    
+    [mainView addSubview:_label];
+}
+
 @end
 

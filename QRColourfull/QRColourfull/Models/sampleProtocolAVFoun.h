@@ -37,6 +37,7 @@
 - (void) setMetadataObjectTypes:(NSArray *)metaDataObjectTypes;
 - (void) start;
 - (void) stop;
+- (void) updateString :(UIView*) mainView;
 
 
 
