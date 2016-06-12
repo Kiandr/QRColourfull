@@ -12,7 +12,5 @@
 @interface ViewController : UIViewController <sampleProtocolDelegate>
 
 
-@property IBOutlet UILabel *label;
-
 @end
 

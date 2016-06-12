@@ -9,8 +9,9 @@
 #import "sampleProtocolAVFoun.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AVFoundation/AVFoundation.h>
-
+#import <QuartzCore/QuartzCore.h>
 #import "ModelQRManagerProtocol.h"
+
 
 @interface sampleProtocolAVFoun () <AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutputSampleBufferDelegate,ModelQRManagerProtocolDelegate>
 
@@ -26,9 +27,10 @@
 @property (nonatomic, strong) dispatch_queue_t audioDataOutputQueue;
 @property (nonatomic, strong) UIImage *realtimeUIImageFromCaptureOutputDelegateMethod;
 @property (nonatomic, strong) NSString *qRDecodedString;
-@property (nonatomic, strong) UIView *superView;
+@property (nonatomic, strong) UIView *mainView;
 @property (nonatomic, strong) UILabel *label;
 @property(nonatomic,strong) UIColor *detectedColour;
+@property (nonatomic, strong) UIImage *realtimeUIIMageFromMainView;
 
 @end
 
@@ -158,6 +160,7 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     // Delegate method is being called.
     for(AVMetadataObject *metadataObject in metadataObjects)
     {
+        [self TakeScreenshotAndSaveToPhotoAlbum];
         if ([metadataObject isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
             AVMetadataMachineReadableCodeObject *readableObject = (AVMetadataMachineReadableCodeObject *)[self.previewLayer transformedMetadataObjectForMetadataObject:metadataObject];
             BOOL foundMatch = readableObject.stringValue != nil;
@@ -165,13 +168,14 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
             _label.text = _qRDecodedString;
             NSLog(@"%@",_qRDecodedString);
             NSArray *corners = readableObject.corners;
+            
             if (corners.count == 4 && foundMatch) {
                 
                 CGPoint topLeftPoint     = [self pointFromArray:corners atIndex:0];
                 CGPoint bottomLeftPoint  = [self pointFromArray:corners atIndex:1];
                 CGPoint bottomRightPoint = [self pointFromArray:corners atIndex:2];
                 CGPoint topRightPoint    = [self pointFromArray:corners atIndex:3];
-
+                [self captureViewImage: _mainView];
                 
                 [self.QRManagerProtocol setFoundMatchWithTopLeftPoint:topLeftPoint
                                                 topRightPoint:topRightPoint
@@ -181,9 +185,6 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                                              decodedQRMessage: (NSString*)_qRDecodedString
                  
                  ];
-
-                
-
                 
             }
         }
@@ -250,12 +251,9 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 
     return retrunObject;
 }
-
-- (void) updateString :(UIView*) mainView
-{
-    _superView =mainView;
+- (void) updateString :(UIView*) mainViewFromController {
+    _mainView = mainViewFromController;
     _label = [[UILabel alloc] initWithFrame:CGRectMake(40, 30, 300, 80)];
-    
     _label.backgroundColor = [UIColor clearColor];
     _label.textAlignment = NSTextAlignmentCenter;
     _label.textColor = [UIColor colorWithCIColor:[[CIColor alloc]initWithRed:0.9 green:0.9 blue:0.9]];
@@ -263,8 +261,41 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     _label.lineBreakMode = UILineBreakModeWordWrap;
     _label.adjustsFontSizeToFitWidth;
     _label.text = _qRDecodedString;
+    [_mainView addSubview:_label];
+}
+-(void)TakeScreenshotAndSaveToPhotoAlbum {
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
     
-    [mainView addSubview:_label];
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+        UIGraphicsBeginImageContextWithOptions(window.bounds.size, NO, [UIScreen mainScreen].scale);
+    else
+        UIGraphicsBeginImageContext(window.bounds.size);
+    
+    [_mainView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+}
+- (UIImage *)imageByRenderingView {
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
+    
+    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+    
+    // old style [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+- (UIImage*)captureViewImage:(UIView *)view {
+    CGRect rect = [[UIScreen mainScreen] bounds];
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [view.layer renderInContext:context];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
 }
 
 @end

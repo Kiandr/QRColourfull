@@ -11,11 +11,11 @@
 // Protocol definition starts here
 @protocol sampleProtocolAVFounDelegate <NSObject>
 
-@required
-//- (void)buildNewImageFromBufferForColourDetection:(UIImage*)bufferImage: didReadCode:(NSString*)decodedQRMessage;
-- (void) buildNewImageFromBufferForColourDetection: (UIImage*)bufferImage decodedString: (NSString*)decodedQRMessage;
 
-- (void) processCompleted:(NSString*)TestString;
+
+@required
+
+
 @end
 
 // Protocol Definition ends here
@@ -38,7 +38,9 @@
 - (void) start;
 - (void) stop;
 - (void) updateString :(UIView*) mainView;
-
+- (void) buildNewImageFromBufferForColourDetection: (UIImage*)bufferImage decodedString: (NSString*)decodedQRMessage;
+- (void) processCompleted:(NSString*)TestString;
+- (void)TakeScreenshotAndSaveToPhotoAlbum;
 
 
 
