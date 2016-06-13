@@ -33,12 +33,15 @@
     [self.view addSubview:self.sampleProtocolUIView];
     [self.view addSubview:self.QRManagerUIView];
     
-    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    aButton.frame = CGRectMake(10,20,200,30);
-    [aButton setTitle:@"My BUTTON" forState:UIControlStateNormal];
-    [aButton addTarget:self action:@selector(barButtonCustomPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:aButton];
+    // tap recoggnizer
     
+    //The setup code (in viewDidLoad in your view controller)
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleSingleTap:)];
+    [self.view addGestureRecognizer:singleFingerTap];
+    
+
     
     
     
@@ -73,13 +76,23 @@
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 }
 
-- (void) test:(id)sender {
+- (void) barButtonCustomPressed:(id)sender {
     [self TakeScreenshotAndSaveToPhotoAlbum];
 }
 
 
--(IBAction)barButtonCustomPressed:(UIBarButtonItem*)btn
-{
-    NSLog(@"button tapped %@", btn.title);
+//The event handling method
+- (void)handleSingleTap:(UITapGestureRecognizer *)tapRecognizer {
+    
+    
+    if(tapRecognizer.state == UIGestureRecognizerStateRecognized)
+    {
+        CGPoint point = [tapRecognizer locationInView:tapRecognizer.view];
+        [self.sampleProtocolUIView settapLocation:point];
+    }
+    
+    //Do stuff here...
+    
 }
+
 @end

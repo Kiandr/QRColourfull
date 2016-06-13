@@ -29,6 +29,7 @@
 }
 
 @property (nonatomic,strong) id delegate;
+
 // Public
 
 // This method should be implemented on the refferee
@@ -41,6 +42,8 @@
 - (void) buildNewImageFromBufferForColourDetection: (UIImage*)bufferImage decodedString: (NSString*)decodedQRMessage;
 - (void) processCompleted:(NSString*)TestString;
 - (void)TakeScreenshotAndSaveToPhotoAlbum;
+- (UIImage*)screenshot;
+- (void) settapLocation:(CGPoint) taplocation;
 
 
 

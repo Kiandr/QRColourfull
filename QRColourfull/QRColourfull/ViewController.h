@@ -12,5 +12,6 @@
 @interface ViewController : UIViewController <sampleProtocolDelegate>
 
 
+
 @end
 

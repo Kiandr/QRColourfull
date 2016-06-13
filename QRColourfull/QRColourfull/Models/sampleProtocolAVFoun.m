@@ -29,13 +29,19 @@
 @property (nonatomic, strong) NSString *qRDecodedString;
 @property (nonatomic, strong) UIView *mainView;
 @property (nonatomic, strong) UILabel *label;
-@property(nonatomic,strong) UIColor *detectedColour;
+@property (nonatomic,strong) UIColor *detectedColour;
 @property (nonatomic, strong) UIImage *realtimeUIIMageFromMainView;
+
+
+
 
 @end
 
 
 @implementation sampleProtocolAVFoun :UIView
+
+CGPoint gcTapLocation;
+
 
 #pragma Initialization
 // Init Implementation delegate method (May25th2016)
@@ -157,7 +163,7 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
 - (void) captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
-    // Delegate method is being called.
+       // Delegate method is being called.
     for(AVMetadataObject *metadataObject in metadataObjects)
     {
         [self TakeScreenshotAndSaveToPhotoAlbum];
@@ -175,6 +181,9 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                 CGPoint bottomLeftPoint  = [self pointFromArray:corners atIndex:1];
                 CGPoint bottomRightPoint = [self pointFromArray:corners atIndex:2];
                 CGPoint topRightPoint    = [self pointFromArray:corners atIndex:3];
+                
+
+                
                 [self captureViewImage: _mainView];
                 
                 [self.QRManagerProtocol setFoundMatchWithTopLeftPoint:topLeftPoint
@@ -195,8 +204,12 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 // Delegate routine that is called when a sample buffer was written
 - (void) captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     
+//    AVCaptureVideoPreviewLayer *previewLayer = (AVCaptureVideoPreviewLayer *)self.previewView.layer;
+    connection.videoOrientation = _previewLayer.connection.videoOrientation;
+
     NSLog(@"Delegate routine that is called when a sample buffer was written");
     _realtimeUIImageFromCaptureOutputDelegateMethod = [self imageFromSampleBuffer:sampleBuffer];
+    
     
 }
 
@@ -256,11 +269,11 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     _label = [[UILabel alloc] initWithFrame:CGRectMake(40, 30, 300, 80)];
     _label.backgroundColor = [UIColor clearColor];
     _label.textAlignment = NSTextAlignmentCenter;
-    _label.textColor = [UIColor colorWithCIColor:[[CIColor alloc]initWithRed:0.9 green:0.9 blue:0.9]];
+    _label.textColor = [UIColor colorWithCIColor:[[CIColor alloc]initWithRed:0.0 green:0.0 blue:0.0]];
     _label.numberOfLines = 3;
     _label.lineBreakMode = UILineBreakModeWordWrap;
     _label.adjustsFontSizeToFitWidth;
-    _label.text = _qRDecodedString;
+    _label.text = @"This is the place holder";
     [_mainView addSubview:_label];
 }
 -(void)TakeScreenshotAndSaveToPhotoAlbum {
@@ -297,6 +310,103 @@ self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     UIGraphicsEndImageContext();
     return img;
 }
+- (UIImage*)screenshot{
+    // Create a graphics context with the target size
+    // On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
+    // On iOS prior to 4, fall back to use UIGraphicsBeginImageContext
+    CGSize imageSize = [[UIScreen mainScreen] bounds].size;
+    if (NULL != UIGraphicsBeginImageContextWithOptions)
+        UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
+    else
+        UIGraphicsBeginImageContext(imageSize);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    // Iterate over every window from back to front
+    for (UIWindow *window in [[UIApplication sharedApplication] windows])
+    {
+        if (![window respondsToSelector:@selector(screen)] || [window screen] == [UIScreen mainScreen])
+        {
+            // -renderInContext: renders in the coordinate space of the layer,
+            // so we must first apply the layer's geometry to the graphics context
+            CGContextSaveGState(context);
+            // Center the context around the window's anchor point
+            CGContextTranslateCTM(context, [window center].x, [window center].y);
+            // Apply the window's transform about the anchor point
+            CGContextConcatCTM(context, [window transform]);
+            // Offset by the portion of the bounds left of and above the anchor point
+            CGContextTranslateCTM(context,
+                                  -[window bounds].size.width * [[window layer] anchorPoint].x,
+                                  -[window bounds].size.height * [[window layer] anchorPoint].y);
+            
+            // Render the layer hierarchy to the current context
+            [[window layer] renderInContext:context];
+            
+            // Restore the context
+            CGContextRestoreGState(context);
+        }
+    }
+    
+    // Retrieve the screenshot imagesa
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+-(void)buildAButton{
+//    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    aButton.frame = CGRectMake(10,20,200,30);
+//    [aButton setTitle:@"TEST    BUTTON" forState:UIControlStateNormal];
+//    [aButton addTarget:self action:@selector(yourFunction) forControlEvents:UIControlEventTouchUpInside];
+//    [sampleProtocolAVFoun addSubview:aButton];
+};
 
+- (UIColor *)colorAtPixel:(CGPoint)point inImage:(UIImage *)image {
+    
+    if (!CGRectContainsPoint(CGRectMake(0.0f, 0.0f, image.size.width, image.size.height), point)) {
+        return nil;
+    }
+    
+    // Create a 1x1 pixel byte array and bitmap context to draw the pixel into.
+    NSInteger pointX = trunc(point.x);
+    NSInteger pointY = trunc(point.y);
+    CGImageRef cgImage = image.CGImage;
+    NSUInteger width = image.size.width;
+    NSUInteger height = image.size.height;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    int bytesPerPixel = 4;
+    int bytesPerRow = bytesPerPixel * 1;
+    NSUInteger bitsPerComponent = 8;
+    unsigned char pixelData[4] = { 0, 0, 0, 0 };
+    CGContextRef context = CGBitmapContextCreate(pixelData, 1, 1, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGColorSpaceRelease(colorSpace);
+    CGContextSetBlendMode(context, kCGBlendModeCopy);
+    
+    // Draw the pixel we are interested in onto the bitmap context
+    CGContextTranslateCTM(context, -pointX, pointY-(CGFloat)height);
+    CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, (CGFloat)width, (CGFloat)height), cgImage);
+    CGContextRelease(context);
+    
+    // Convert color values [0..255] to floats [0.0..1.0]
+    CGFloat red   = (CGFloat)pixelData[0] / 255.0f;
+    CGFloat green = (CGFloat)pixelData[1] / 255.0f;
+    CGFloat blue  = (CGFloat)pixelData[2] / 255.0f;
+    CGFloat alpha = (CGFloat)pixelData[3] / 255.0f;
+    return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+}
+
+
+- (void) settapLocation:(CGPoint) taplocation{
+    gcTapLocation =taplocation;
+
+                _label.textColor =  [self colorAtPixel:gcTapLocation inImage:_realtimeUIImageFromCaptureOutputDelegateMethod];
+    
+    
+    
+    _label.text = @"UPDATING COLOUR .....";
+    
+
+};
 @end
 
