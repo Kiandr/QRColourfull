@@ -40,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2E47464F1E665D1900F19502 /* UIButtonProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIButtonProtocol.h; sourceTree = "<group>"; };
 		9F7F6E2E1CF5685E00CAE1C6 /* QRColourfull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRColourfull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7F6E321CF5685E00CAE1C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9F7F6E341CF5685E00CAE1C6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -193,6 +194,7 @@
 				9F8044911CFA58740068CD17 /* ModelQRManagerProtocol.h */,
 				9F80448F1CFA58260068CD17 /* ModelQRManagerProtocol.m */,
 				9F8044921CFA5CC80068CD17 /* MyQRManagedObject.h */,
+				2E47464F1E665D1900F19502 /* UIButtonProtocol.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
